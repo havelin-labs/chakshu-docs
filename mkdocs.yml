@@ -36,6 +36,7 @@ nav:
   - Getting started:
       - Install with Docker Compose: getting-started/install.md
       - Connect GitHub: getting-started/connect-github.md
+      - Troubleshooting: getting-started/troubleshooting.md
   - Concepts:
       - Reviewers: concepts/reviewers.md
       - Calling Chakshu: concepts/calling-chakshu.md
