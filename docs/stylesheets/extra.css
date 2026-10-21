@@ -1,36 +1,70 @@
-/* Chakshu brand colors, matching the portal (see brand/README.md in the code repo). */
+/* Havelin design system, matching the portal. Source of truth: DESIGN.md in havelin-labs/chakshu. */
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&display=swap");
+
 :root {
-  --chakshu-orange: #FF5841;
-  --chakshu-violet: #C53678;
+  --havelin-teal: #00C7B0;
+  --md-text-font: "Inter";
 }
 
 [data-md-color-scheme="default"] {
-  --md-primary-fg-color: #C53678;
-  --md-primary-fg-color--light: #E35D97;
-  --md-primary-fg-color--dark: #8E1F55;
-  --md-accent-fg-color: #FF5841;
-  --md-typeset-a-color: #C53678;
+  --md-default-bg-color: #F4F5F6;
+  --md-default-fg-color: #0A0A0A;
+  --md-default-fg-color--light: #5E6773;
+  --md-primary-fg-color: #F4F5F6;
+  --md-primary-fg-color--light: #FFFFFF;
+  --md-primary-fg-color--dark: #E7E9EB;
+  --md-primary-bg-color: #0A0A0A;
+  --md-primary-bg-color--light: #5E6773;
+  --md-accent-fg-color: #00C7B0;
+  --md-typeset-a-color: #00806F; /* teal dark enough for text */
+  --md-code-bg-color: #FFFFFF;
 }
 
 [data-md-color-scheme="slate"] {
-  --md-hue: 315;
-  --md-default-bg-color: #150F17;
-  --md-primary-fg-color: #E35D97;
-  --md-primary-fg-color--light: #F7B3D1;
-  --md-primary-fg-color--dark: #C53678;
-  --md-accent-fg-color: #FF6F5B;
-  --md-typeset-a-color: #F07AAE;
+  --md-hue: 210;
+  --md-default-bg-color: #0B0C0E;
+  --md-default-fg-color--light: #9AA3AE;
+  --md-primary-fg-color: #0B0C0E;
+  --md-primary-fg-color--light: #131518;
+  --md-primary-fg-color--dark: #000000;
+  --md-primary-bg-color: #F4F5F6;
+  --md-accent-fg-color: #00C7B0;
+  --md-typeset-a-color: #2EE0CA;
+  --md-code-bg-color: #131518;
 }
 
-/* Gradient header instead of a flat bar. */
-.md-header,
-.md-tabs {
-  background-image: linear-gradient(110deg, var(--chakshu-orange), var(--chakshu-violet));
-  color: #FFFFFF;
+/* Headings in Space Grotesk, as on havelin.in. */
+.md-typeset h1,
+.md-typeset h2,
+.md-typeset h3,
+.md-header__topic {
+  font-family: "Space Grotesk", -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.md-typeset h1 {
+  color: var(--md-default-fg-color);
+}
+
+/* Sticky header with a hairline border instead of a shadow. */
+.md-header {
+  border-bottom: 1px solid rgba(204, 207, 209, 0.5);
+  box-shadow: none;
+}
+
+[data-md-color-scheme="slate"] .md-header {
+  border-bottom-color: rgba(255, 255, 255, 0.08);
+}
+
+/* 4px radius everywhere. */
+.md-typeset .admonition,
+.md-typeset details,
+.md-typeset pre > code,
+.md-search__form {
+  border-radius: 4px;
 }
 
 .md-header__button.md-logo img {
-  height: 1.6rem;
-  border-radius: 0.35rem;
-  box-shadow: 0 0 0 2px rgb(255 255 255 / 0.85);
+  height: 1.7rem;
 }
