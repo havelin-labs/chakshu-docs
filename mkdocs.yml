@@ -1,0 +1,58 @@
+site_name: Chakshu
+site_description: Self-hosted pull request reviews for GitHub teams
+site_url: https://chakshu.havelin.in/docs/
+repo_url: https://github.com/havelin-labs/chakshu
+repo_name: havelin-labs/chakshu
+edit_uri: https://github.com/havelin-labs/chakshu-docs/edit/main/docs/
+copyright: Copyright &copy; Havelin Labs. Apache-2.0.
+
+theme:
+  name: material
+  # Neutral greys so the docs match the portal in light and dark mode.
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: grey
+      accent: blue grey
+      toggle: { icon: material/weather-night, name: Switch to dark mode }
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: grey
+      accent: blue grey
+      toggle: { icon: material/weather-sunny, name: Switch to light mode }
+  font: false # use system fonts; nothing loads from Google
+  features:
+    - navigation.sections
+    - navigation.top
+    - content.code.copy
+    - search.highlight
+
+nav:
+  - Home: index.md
+  - Getting started:
+      - Install with Docker Compose: getting-started/install.md
+      - Connect GitHub: getting-started/connect-github.md
+  - Concepts:
+      - Reviewers: concepts/reviewers.md
+      - Calling Chakshu: concepts/calling-chakshu.md
+      - How a review runs: concepts/how-a-review-runs.md
+  - Reference:
+      - Configuration: reference/configuration.md
+      - Deterministic IDs: reference/ids.md
+  - Project:
+      - Architecture: project/architecture.md
+      - Roadmap: project/roadmap.md
+      - Contributing: project/contributing.md
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - tables
+  - toc: { permalink: true }
+  - pymdownx.details
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed: { alternate_style: true }
