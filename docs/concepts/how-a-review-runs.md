@@ -1,26 +1,33 @@
 # How a review runs
 
-!!! warning "Planned"
-    This describes the review pipeline as designed.
-
 ```mermaid
 flowchart LR
-  A[Comment, review request<br/>or PR opened] --> B[Pick reviewers]
+  A[Comment, review request,<br/>portal or PR event] --> B[Pick reviewers]
   B --> C[Queue one run<br/>per reviewer]
-  C --> D[Build workspace:<br/>team skills + PR code]
-  D --> E[Claude Agent SDK<br/>read-only tools]
-  E --> F[Check lines,<br/>skip repeats]
+  C --> D[Worker claims it]
+  D --> E[Workspace:<br/>team skills + PR code]
+  E --> F[Claude Agent SDK<br/>read-only tools]
   F --> G[Review + check run<br/>on the PR]
 ```
 
 1. **Pick reviewers.** See [Calling Chakshu](calling-chakshu.md).
-2. **Queue.** Each reviewer gets a row in the `runs` table, which is also the job queue. A second request for the same reviewer, PR and commit is ignored. Each reviewer gets its own check run, for example "Chakshu · payments-reviewer".
-3. **Build a workspace.** Chakshu creates a temporary folder and copies in the reviewer's skills and rules from the reviewers repo. Then it shallow-clones the PR's head commit into `code/` and deletes any `.claude/`, `CLAUDE.md` or `AGENTS.md` from that copy. Only your team's files can give the reviewer instructions; the pull request can't.
-4. **Review.** The Claude Agent SDK runs in that folder with only `Read`, `Grep`, `Glob` and `Skill`. It has no shell, no network tools and no GitHub token. It stops at the reviewer's cost cap and returns findings as structured JSON.
-5. **Publish.** Findings on lines outside the diff move to the summary, because GitHub rejects comments there. Findings already posted on an earlier run are skipped. The rest go out as one review with inline comments and suggestions, and the check run completes.
+2. **Queue.** Each reviewer gets a row in the `runs` table, which is also the job queue.
+3. **Claim.** A worker takes the oldest queued run (`FOR UPDATE SKIP LOCKED`, so several workers never take the same one) and opens a check run called **Chakshu · &lt;reviewer&gt;**.
+4. **Still current?** If the pull request has moved to a newer commit, the run is cancelled and the check says so. Ask again for the new commit.
+5. **Build a workspace.** Chakshu checks out the reviewer at the commit it was synced from, and the pull request at its head commit. The team's skills go into `.claude/skills/` and its rules into `CLAUDE.md`. In the PR's copy it deletes `CLAUDE.md`, `CLAUDE.local.md`, `AGENTS.md`, `.claude/` and `.mcp.json` at any depth, plus `.git` and symlinks that point outside the checkout.
+6. **Review.** The agent runs in that folder with only `Read`, `Grep`, `Glob` and `Skill`. It has no shell, no web access and no GitHub token, and it loads no settings other than the workspace's. It stops at the reviewer's cost cap and returns a summary and findings as structured JSON.
+7. **Publish.** Findings below `min_severity` are dropped and the rest are capped at `max_findings`. Findings already posted on this PR are skipped. Each carries a hidden ID made from the file, category and title, so an unrelated edit doesn't make it look new. The rest go out as one review: inline comments with suggestions where the agent offered a fix, and anything outside the changed lines in the summary.
+8. **Finish.** The check run completes: failure if any finding reaches `fail_check_on`, success otherwise. Cost, duration and findings are saved on the run, and a pending `chakshu` review request is cleared.
+
+## When something goes wrong
+
+- GitHub 5xx and rate-limit responses, network errors and git errors are retried, up to three attempts in total.
+- Anything else fails the run. The error shows on the run page, and the check completes as neutral with the reason.
+- A run left "running" by a worker that stopped is picked up again after 30 minutes, or when the worker restarts.
 
 ## What stops a hostile pull request
 
 - The reviewer's instructions come only from the reviewers repo, never from the PR.
-- The agent can read files and nothing else. Even if the PR's text convinces it to try something, it has no tool to do it with.
-- Write access to GitHub is held by the publishing step, which runs plain code that never sees model output as instructions.
+- The PR's title, description, diff and the requester's note are fenced as untrusted data, and the agent is told not to follow instructions inside them.
+- The agent can read files and nothing else. Even if text in the PR talks it into trying something, it has no tool to do it with.
+- Write access to GitHub is used only by the publishing step, which is plain code that treats the agent's output as data.
