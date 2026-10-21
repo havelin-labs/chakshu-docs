@@ -1,0 +1,36 @@
+/* Chakshu brand colors, matching the portal (see brand/README.md in the code repo). */
+:root {
+  --chakshu-orange: #FF5841;
+  --chakshu-violet: #C53678;
+}
+
+[data-md-color-scheme="default"] {
+  --md-primary-fg-color: #C53678;
+  --md-primary-fg-color--light: #E35D97;
+  --md-primary-fg-color--dark: #8E1F55;
+  --md-accent-fg-color: #FF5841;
+  --md-typeset-a-color: #C53678;
+}
+
+[data-md-color-scheme="slate"] {
+  --md-hue: 315;
+  --md-default-bg-color: #150F17;
+  --md-primary-fg-color: #E35D97;
+  --md-primary-fg-color--light: #F7B3D1;
+  --md-primary-fg-color--dark: #C53678;
+  --md-accent-fg-color: #FF6F5B;
+  --md-typeset-a-color: #F07AAE;
+}
+
+/* Gradient header instead of a flat bar. */
+.md-header,
+.md-tabs {
+  background-image: linear-gradient(110deg, var(--chakshu-orange), var(--chakshu-violet));
+  color: #FFFFFF;
+}
+
+.md-header__button.md-logo img {
+  height: 1.6rem;
+  border-radius: 0.35rem;
+  box-shadow: 0 0 0 2px rgb(255 255 255 / 0.85);
+}
