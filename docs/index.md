@@ -11,7 +11,7 @@ Every team in your organization keeps its own reviewer: a folder in a GitHub rep
 
 - A server or laptop with Docker and Docker Compose
 - Owner rights in the GitHub organization you want to review
-- An Anthropic API key, or access to Claude through Amazon Bedrock or Google Vertex AI
+- Claude access: an Anthropic API key, a Claude Pro or Max subscription token, or Amazon Bedrock or Google Vertex AI
 
 ## Where to start
 

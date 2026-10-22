@@ -15,7 +15,7 @@ The app is private, and GitHub only lets a private app be installed on the accou
 GitHub sends you back to Chakshu with the app's keys. They're stored encrypted with `CHAKSHU_SECRET_KEY`.
 
 !!! warning "Webhooks need a public URL"
-    GitHub only delivers webhooks to URLs it can reach. If `CHAKSHU_BASE_URL` is `localhost` or a private address, the app is created without webhooks: the portal's Review button works, but mentions and automatic reviews don't. For a laptop, create a channel at [smee.io](https://smee.io), set `CHAKSHU_WEBHOOK_URL` to it, forward it to `http://localhost:8000/webhooks/github`, and do this step after restarting.
+    GitHub only delivers webhooks to URLs it can reach. If `CHAKSHU_BASE_URL` is `localhost` or a private address, the app is created without webhooks: the portal's Review button works, but mentions and automatic reviews don't. You can turn them on later; see [Turn on webhooks](#turn-on-webhooks).
 
 ## 3. Install it
 
@@ -33,11 +33,19 @@ Click **Sign in with GitHub**. Who can sign in:
 | A login in `CHAKSHU_ADMINS` | yes | yes |
 | Anyone else | no | |
 
-## 5. Add your API key
+## 5. Add Claude access
 
-Go to **Settings** and paste your Anthropic API key. It's write-only: the page only shows that a key is set and its last characters. You can also set the default model, the cost cap per review and the reviewers repo name here.
+Go to **Settings → Claude access** and fill in one of:
 
-Using Bedrock or Vertex instead? Leave the key empty and set the environment variables in [Configuration](../reference/configuration.md).
+- **Anthropic API key**, from console.anthropic.com, paid from Console credits.
+- **Claude subscription token**: run `claude setup-token` with a Pro or Max account and paste the token. Reviews then count against that person's subscription limits.
+
+If both are set, the API key is used, and the box shows which one reviews run on. Both are write-only. Using Bedrock or Vertex instead? Leave both empty and set the environment variables in [Configuration](../reference/configuration.md).
+
+!!! warning "Subscription tokens"
+    Anthropic's terms restrict using claude.ai subscriptions in third-party products. Check that your use is allowed before relying on a subscription token, and prefer an API key for shared or production use.
+
+The same page sets the default model, the cost caps and the reviewers repo name.
 
 ## 6. Create the reviewers repo
 
@@ -63,3 +71,14 @@ Comment `@<org>/chakshu` on an open pull request. You'll see 👀 on your commen
 | Metadata: read | Required by GitHub |
 
 Events: `pull_request`, `issue_comment`, `push`. Installation events arrive without subscribing.
+
+## Turn on webhooks
+
+Needed for mentions, Reviewers-list requests and automatic reviews.
+
+1. Give GitHub a public URL. On a server, that's `CHAKSHU_BASE_URL`. On a laptop, create a channel at [smee.io](https://smee.io), put it in `.env` as `CHAKSHU_WEBHOOK_URL`, and run `docker compose up -d` and `docker compose --profile smee up -d`.
+2. If the app was created without webhooks, open its settings on GitHub (the owner's Settings, Developer settings, GitHub Apps, then the app). Tick **Webhook: Active**, set the URL from Chakshu's Settings page, leave the secret empty, and save.
+3. Under **Permissions & events**, subscribe to **Pull request**, **Issue comment** and **Push**, and save. GitHub greys these out until the webhook is active.
+4. In Chakshu, press **Settings → Webhooks → Connect webhooks**. Chakshu sets the webhook secret on GitHub itself.
+
+To check, comment `@<org>/chakshu` on a pull request. You should see 👀 within a few seconds.
