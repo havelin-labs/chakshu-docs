@@ -41,6 +41,7 @@ nav:
       - Reviewers: concepts/reviewers.md
       - Calling Chakshu: concepts/calling-chakshu.md
       - How a review runs: concepts/how-a-review-runs.md
+      - Insights: concepts/insights.md
   - Reference:
       - Configuration: reference/configuration.md
       - Deterministic IDs: reference/ids.md

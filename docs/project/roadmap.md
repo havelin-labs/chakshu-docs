@@ -23,12 +23,12 @@ Work lands in small pull requests, one concern each, tracked in [havelin-labs/ch
 - Monthly spend cap
 - Later reviews look only at commits added since the last one
 - Chakshu resolves its own outdated threads
+- Insights: per-skill fixed and dismissed rates
 
 ## Next
 
 1. Tag a release after end-to-end testing.
 2. Publish these docs at chakshu.havelin.in/docs.
-3. Per-skill stats: which skills' findings get fixed and which get dismissed.
 
 ## Later
 
