@@ -61,7 +61,8 @@ fail_check_on: high
 | `limits.max_findings` | 10 | The most findings posted per review, most severe first. |
 | `limits.min_severity` | `medium` | Findings below this aren't posted. |
 | `fail_check_on` | never | Lowest severity that turns the check red. |
-| `tools`, `connectors` | `[]` | Accepted for forward compatibility. Version 0.1 always runs read-only tools and no connectors. |
+| `connectors` | `[]` | Names of [connectors](connectors.md) this reviewer can read from, e.g. `[jira]`. |
+| `tools` | `[]` | Accepted for forward compatibility. Reviews always run read-only tools. |
 
 Unknown fields are errors, so a typo shows up instead of silently doing nothing.
 
