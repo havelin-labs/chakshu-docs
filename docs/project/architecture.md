@@ -6,7 +6,7 @@ flowchart TB
   github[GitHub App] -->|webhooks| web
   subgraph compose[docker compose]
     web["web: FastAPI API, React portal, webhooks"]
-    worker["worker: review runner"]
+    worker["worker: webhook events and reviews"]
     db[(Postgres 17)]
     web --> db
     worker --> db
@@ -59,6 +59,6 @@ frontend/src/
 | `repos` | Repos the app can see, and whether reviews are on |
 | `reviewers` | Cache of each `reviewer.yaml`, the commit it came from and any errors |
 | `runs` | One reviewer × one PR × one commit; also the job queue |
-| `webhook_deliveries` | Handled delivery IDs, for deduplication |
+| `webhook_events` | Webhooks waiting for or done by the worker; keyed by delivery ID, so redeliveries are dropped |
 
 Every primary key is a [deterministic ID](../reference/ids.md).

@@ -35,6 +35,14 @@ Open the run in the portal for the full error. Common causes:
 
 GitHub and network errors are retried automatically up to three times before a run fails.
 
+## Chakshu replied that reviews are paused
+
+This month's spend reached the monthly cap in **Settings**. An admin can raise or clear it; new requests work straight away.
+
+## A webhook shows up under "Failed webhooks"
+
+The **Status** page lists webhooks that failed three times, with the error. Fix the cause (often the app lost access to a repo), then an admin can press **Retry**.
+
 ## The check says "Superseded by a newer commit"
 
 Someone pushed before the review started, so the queued run was for an old commit. Ask again; the new review covers the latest commit.

@@ -16,12 +16,19 @@ Work lands in small pull requests, one concern each, tracked in [havelin-labs/ch
 - Portal pages for reviews, repositories and settings
 - Release workflow with signed multi-arch images
 
+## Done (0.2)
+
+- Webhooks stored in Postgres and handled by the worker, with retries and a failures list
+- Graceful worker shutdown and heartbeat-based recovery
+- Monthly spend cap
+- Later reviews look only at commits added since the last one
+- Chakshu resolves its own outdated threads
+
 ## Next
 
-1. Publish these docs at chakshu.havelin.in/docs.
-2. Tag `v0.1.0` after end-to-end testing.
-3. Review only the commits added since the last review.
-4. Resolve Chakshu's own comment threads when the code they point at changes.
+1. Tag a release after end-to-end testing.
+2. Publish these docs at chakshu.havelin.in/docs.
+3. Per-skill stats: which skills' findings get fixed and which get dismissed.
 
 ## Later
 
