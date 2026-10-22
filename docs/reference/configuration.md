@@ -16,7 +16,8 @@ A few things are set in the environment before Chakshu starts. Everything else i
 | `CHAKSHU_LOG_LEVEL` | `INFO` | |
 | `CHAKSHU_PORT` | `8000` | Host port compose publishes. |
 | `CHAKSHU_GITHUB_URL`, `CHAKSHU_GITHUB_API_URL` | github.com | For GitHub Enterprise Server. |
-| `ANTHROPIC_API_KEY` | none | Used when no key is saved in **Settings**. |
+| `ANTHROPIC_API_KEY` | none | Used when no Claude access is saved in **Settings**. |
+| `CLAUDE_CODE_OAUTH_TOKEN` | none | A subscription token from `claude setup-token`, used when nothing is saved in **Settings** and there's no API key. |
 | `CLAUDE_CODE_USE_BEDROCK`, `AWS_REGION` | none | Run reviews through Amazon Bedrock (AWS credentials from the usual environment variables). |
 | `CLAUDE_CODE_USE_VERTEX` | none | Run reviews through Google Vertex AI. |
 
@@ -24,7 +25,9 @@ A few things are set in the environment before Chakshu starts. Everything else i
 
 | Setting | Default | Notes |
 |---|---|---|
-| Anthropic API key | none | Write-only. The page shows whether it's set and its last characters. |
+| Anthropic API key | none | Write-only. Wins when both credentials are set. |
+| Claude subscription token | none | Write-only. From `claude setup-token`; uses that person's Pro or Max limits. |
+| Webhooks | off | **Connect webhooks** sets the app's webhook secret on GitHub. |
 | Default model | `sonnet` | Used when a reviewer doesn't set `model`. |
 | Cost cap per review | $2 | Used when a reviewer doesn't set `limits.max_usd`. |
 | Monthly spend cap | none | New reviews are refused once this calendar month's (UTC) spend reaches it. Settings shows spend so far. |
