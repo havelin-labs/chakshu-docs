@@ -27,6 +27,7 @@ A few things are set in the environment before Chakshu starts. Everything else i
 | Anthropic API key | none | Write-only. The page shows whether it's set and its last characters. |
 | Default model | `sonnet` | Used when a reviewer doesn't set `model`. |
 | Cost cap per review | $2 | Used when a reviewer doesn't set `limits.max_usd`. |
+| Monthly spend cap | none | New reviews are refused once this calendar month's (UTC) spend reaches it. Settings shows spend so far. |
 | Reviewers repo name | `chakshu-reviewers` | The repo in each org that holds reviewer folders. |
 
 Admins can also turn reviews off for a repository on the **Repositories** page.
@@ -37,7 +38,7 @@ Admins can also turn reviews off for a repository on the **Repositories** page.
 |---|---|
 | `GET /healthz` | Liveness. Returns status and version. |
 | `GET /readyz` | Readiness. Returns 503 if the database doesn't answer. |
-| `POST /webhooks/github` | GitHub webhooks. Signature-checked; redeliveries are ignored. |
+| `POST /webhooks/github` | GitHub webhooks. Signature-checked and stored; the worker handles them. Redeliveries are ignored. |
 | `GET /auth/login`, `GET /auth/callback` | Sign in with GitHub. |
 | `/api/*` | The portal's JSON API. State-changing calls need the session's `X-CSRF-Token`. |
 | everything else | The portal. |

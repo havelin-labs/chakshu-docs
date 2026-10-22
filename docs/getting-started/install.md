@@ -63,7 +63,7 @@ git pull
 docker compose up -d --build --wait
 ```
 
-Migrations run before `web` and `worker` start. A review that was running when the worker stopped is picked up again automatically.
+Migrations run before `web` and `worker` start. When the old worker stops, it lets running reviews finish (up to nine minutes) and hands anything unfinished back to the queue, so upgrades don't drop reviews. Webhooks that arrive during the upgrade wait in the database until the new worker is up.
 
 ## Checking health
 

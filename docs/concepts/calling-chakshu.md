@@ -27,7 +27,11 @@ People with write, maintain or admin access to the repository. Anyone else gets 
 
 ## Asking twice
 
-Asking again for the same commit doesn't start a second review while the first is queued, running or done. A new push, or a change to the reviewer, makes the next request a fresh review. Findings already posted on the pull request aren't repeated.
+Asking again for the same commit doesn't start a second review while the first is queued, running or done. A new push, or a change to the reviewer, makes the next request a new review. After a push, that review looks only at what changed since the last one (see [How a review runs](how-a-review-runs.md#later-reviews-of-the-same-pr)). Findings already posted on the pull request aren't repeated, and Chakshu's own threads on code that has since been fixed are resolved.
+
+## Spend cap
+
+If an admin set a monthly spend cap and this month's reviews have reached it, Chakshu replies that reviews are paused and runs nothing new until the cap is raised or the month ends.
 
 ## Why `@acme/chakshu` and not `@chakshu`
 
