@@ -8,7 +8,9 @@ Open `CHAKSHU_BASE_URL`. You'll land on **Connect Chakshu to GitHub**. Enter the
 
 ## 2. Create the app
 
-Enter your GitHub organization (leave it empty for a personal account) and an app name. App names are unique across all of GitHub, so the default is `chakshu-<org>`. Click **Create on GitHub**, check the details GitHub shows, and confirm.
+Enter your GitHub organization, using its login from the URL (`github.com/acme`). You need to be an owner of it. Then choose an app name.
+
+The app is private, and GitHub only lets a private app be installed on the account that owns it. So create it under the org whose repositories you want reviewed. Choose "personal account" only if you're reviewing your own repositories. App names are unique across all of GitHub, so the default is `chakshu-<org>`. Click **Create on GitHub**, check the details GitHub shows, and confirm.
 
 GitHub sends you back to Chakshu with the app's keys. They're stored encrypted with `CHAKSHU_SECRET_KEY`.
 

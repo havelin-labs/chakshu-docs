@@ -1,5 +1,15 @@
 # Troubleshooting
 
+## My organization's repositories don't show up
+
+Check who owns the app: open its settings on GitHub, under Settings, Developer settings, GitHub Apps. If it lives under your personal account, it can only be installed there. Fix it without reinstalling Chakshu:
+
+1. In the app's settings, open **Advanced**, choose **Transfer ownership** and enter the organization. An org owner approves it.
+2. Install the app on the organization (`https://github.com/apps/<app-name>/installations/new`) and pick the repositories.
+3. In Chakshu, press **Sync repositories** on the Repositories page.
+
+The app ID and keys don't change, so nothing in Chakshu needs reconfiguring.
+
 ## There's no setup code in the logs
 
 The code only appears while no GitHub App is connected. If you've already connected one, sign in instead. If `web` can't reach the database at startup it logs a warning rather than a code. Check `curl localhost:8000/readyz` and `docker compose logs db`.
