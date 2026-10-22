@@ -24,6 +24,7 @@ Work lands in small pull requests, one concern each, tracked in [havelin-labs/ch
 - Later reviews look only at commits added since the last one
 - Chakshu resolves its own outdated threads
 - Insights: per-skill fixed and dismissed rates
+- Jira connector
 
 ## Next
 
@@ -32,7 +33,7 @@ Work lands in small pull requests, one concern each, tracked in [havelin-labs/ch
 
 ## Later
 
-- Jira and other context through MCP connectors (`connectors` in `reviewer.yaml`)
+- More connectors: Linear, Confluence, Sentry
 - Sandboxed scripts from skills, such as linters or schema checks
 - Other engines (OpenAI, Copilot SDK)
 - GitLab and Bitbucket
