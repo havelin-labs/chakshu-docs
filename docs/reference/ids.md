@@ -1,3 +1,7 @@
+---
+icon: material/identifier
+---
+
 # Deterministic IDs
 
 Every row in Chakshu's database has a UUIDv5 primary key. The same inputs always give the same ID, which is what makes retries and resyncs safe.

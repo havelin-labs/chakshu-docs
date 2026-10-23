@@ -1,3 +1,7 @@
+---
+icon: material/lifebuoy
+---
+
 # Troubleshooting
 
 ## My organization's repositories don't show up

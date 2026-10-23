@@ -1,3 +1,7 @@
+---
+icon: material/play-circle-outline
+---
+
 # Set up GitHub Actions
 
 Reviews run in GitHub Actions, in the pull request's own repository. Each review is a short workflow run, so anyone with access to the repo can open the **Actions** tab and watch it: which files the reviewer read, which tools it called, and what it found. Chakshu's server only coordinates. It never runs the model itself.

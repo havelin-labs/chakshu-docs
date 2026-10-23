@@ -1,3 +1,7 @@
+---
+icon: material/account-group-outline
+---
+
 # Reviewers
 
 A reviewer is the review one team wants for its product. It lives as a folder in a single repo in your organization, `chakshu-reviewers` by default. Teams own their folders through `CODEOWNERS`, and anyone with write access to a repository can run any reviewer on it.

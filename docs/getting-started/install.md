@@ -1,3 +1,7 @@
+---
+icon: material/docker
+---
+
 # Install with Docker Compose
 
 Chakshu runs as a few containers from one image plus Postgres. Reviews themselves run in GitHub Actions in each reviewed repository, so the server stays small.

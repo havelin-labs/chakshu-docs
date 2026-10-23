@@ -68,3 +68,80 @@
 .md-header__button.md-logo img {
   height: 1.7rem;
 }
+
+/* Tabs under the header: one per section, so the sidebar only lists that section's pages. */
+.md-tabs {
+  background-color: var(--md-default-bg-color);
+  color: var(--md-default-fg-color--light);
+  border-bottom: 1px solid rgba(204, 207, 209, 0.5);
+}
+
+[data-md-color-scheme="slate"] .md-tabs {
+  border-bottom-color: rgba(255, 255, 255, 0.08);
+}
+
+.md-tabs__link {
+  font-weight: 500;
+  opacity: 1;
+}
+
+.md-tabs__item--active .md-tabs__link {
+  color: var(--md-default-fg-color);
+  font-weight: 600;
+}
+
+/* Sidebar: more air between items, a clear active page. */
+.md-nav__item {
+  padding: 0.1rem 0;
+}
+
+.md-nav__link {
+  margin-top: 0.35em;
+  margin-bottom: 0.35em;
+}
+
+.md-nav__link .md-icon,
+.md-nav__link svg {
+  color: var(--md-default-fg-color--light);
+}
+
+.md-nav__link--active,
+.md-nav__link--active svg {
+  color: var(--md-typeset-a-color);
+  font-weight: 600;
+}
+
+/* Cards: teal icons, 4px corners, a calm hover. */
+.md-typeset .grid.cards > ul > li {
+  border-radius: 6px;
+  border-color: rgba(204, 207, 209, 0.6);
+  background: var(--md-code-bg-color);
+}
+
+.md-typeset .grid.cards > ul > li:hover {
+  border-color: var(--havelin-teal);
+  box-shadow: none;
+}
+
+.md-typeset .grid.cards .lg {
+  width: 1.6em;
+  height: 1.6em;
+  color: var(--havelin-teal);
+  vertical-align: middle;
+  margin-right: 0.25em;
+}
+
+/* Diagrams sit on their own light panel, so they read the same in both themes. */
+.md-typeset img.diagram {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 1.25em 0;
+  border: 1px solid rgba(204, 207, 209, 0.7);
+  border-radius: 10px;
+  background: #FFFFFF;
+}
+
+[data-md-color-scheme="slate"] .md-typeset img.diagram {
+  border-color: rgba(255, 255, 255, 0.12);
+}

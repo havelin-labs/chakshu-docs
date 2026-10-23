@@ -1,3 +1,7 @@
+---
+icon: material/map-outline
+---
+
 # Roadmap
 
 Work lands in small pull requests, one concern each, tracked in [havelin-labs/chakshu](https://github.com/havelin-labs/chakshu/issues).

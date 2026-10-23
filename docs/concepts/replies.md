@@ -1,3 +1,7 @@
+---
+icon: material/message-reply-text-outline
+---
+
 # Replies
 
 People can talk back to Chakshu. Reply to one of its inline comments, and the reviewer that posted the finding reads the thread and answers there.

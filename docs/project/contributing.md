@@ -1,3 +1,7 @@
+---
+icon: material/hand-heart-outline
+---
+
 # Contributing
 
 The full guide lives in the code repo's [CONTRIBUTING.md](https://github.com/havelin-labs/chakshu/blob/main/CONTRIBUTING.md). The short version:
