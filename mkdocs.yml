@@ -43,6 +43,7 @@ nav:
       - Calling Chakshu: concepts/calling-chakshu.md
       - Replies: concepts/replies.md
       - How a review runs: concepts/how-a-review-runs.md
+      - Analytics: concepts/analytics.md
       - Insights: concepts/insights.md
       - Connectors: concepts/connectors.md
   - Reference:
