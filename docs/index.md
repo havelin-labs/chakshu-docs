@@ -4,8 +4,8 @@ Chakshu (चक्षु, Sanskrit for "the eye") reviews pull requests on GitHu
 
 Every team in your organization keeps its own reviewer: a folder in a GitHub repo with the team's skills, rules and settings. When someone comments `@your-org/chakshu` on a pull request, Chakshu runs the reviewers that match the files the PR changed, or the ones named in the comment. Each reviewer posts its own review and check run. Reviews run in GitHub Actions in the pull request's own repository, so the logs are in its Actions tab, on the Claude Agent SDK, which can only read the code.
 
-!!! note "Version 0.1"
-    Everything on these pages works in the current code. It hasn't had a tagged release yet, so expect rough edges and tell us about them in [GitHub issues](https://github.com/havelin-labs/chakshu/issues).
+!!! note "Before the first release"
+    Everything on these pages works in the current code on `main`, and has been run against a real GitHub organization. There's no tagged release yet, so expect rough edges and tell us about them in [GitHub issues](https://github.com/havelin-labs/chakshu/issues).
 
 ## What you need
 
