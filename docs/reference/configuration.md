@@ -1,3 +1,7 @@
+---
+icon: material/cog-outline
+---
+
 # Configuration
 
 A few things are set in the environment before Chakshu starts. Everything else is set in the portal and stored in the database, with secrets encrypted.

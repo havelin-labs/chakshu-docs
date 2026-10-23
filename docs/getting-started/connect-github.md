@@ -1,3 +1,7 @@
+---
+icon: material/github
+---
+
 # Connect GitHub
 
 Chakshu talks to GitHub as a GitHub App that belongs to your install. The portal creates it for you through GitHub's manifest flow, so you never copy a private key around.

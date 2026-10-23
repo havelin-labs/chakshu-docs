@@ -1,3 +1,7 @@
+---
+icon: material/source-pull
+---
+
 # How a review runs
 
 ```mermaid

@@ -1,3 +1,7 @@
+---
+icon: material/chart-box-outline
+---
+
 # Analytics
 
 **Analytics** shows admins how Chakshu is used across the organization and what it costs. **My activity** shows each person their own usage.

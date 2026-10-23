@@ -1,3 +1,7 @@
+---
+icon: material/lightbulb-outline
+---
+
 # Insights
 
 The **Insights** page shows, for each reviewer and skill, what happened to the inline findings Chakshu posted. Use it to find skills that catch real problems and skills that mostly add noise.

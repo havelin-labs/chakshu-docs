@@ -26,26 +26,32 @@ theme:
   logo: assets/logo.svg
   favicon: assets/logo.svg
   features:
+    - navigation.tabs
+    - navigation.tabs.sticky
     - navigation.sections
     - navigation.top
+    - navigation.footer
+    - toc.follow
     - content.code.copy
     - search.highlight
+    - search.suggest
 
 nav:
   - Home: index.md
-  - Getting started:
+  - Get started:
       - Install with Docker Compose: getting-started/install.md
       - Connect GitHub: getting-started/connect-github.md
       - Set up GitHub Actions: getting-started/github-actions.md
       - Troubleshooting: getting-started/troubleshooting.md
-  - Concepts:
-      - Reviewers: concepts/reviewers.md
+  - Use Chakshu:
       - Calling Chakshu: concepts/calling-chakshu.md
+      - Reviewers: concepts/reviewers.md
       - Replies: concepts/replies.md
+      - Connectors: concepts/connectors.md
       - How a review runs: concepts/how-a-review-runs.md
+  - Analytics:
       - Analytics: concepts/analytics.md
       - Insights: concepts/insights.md
-      - Connectors: concepts/connectors.md
   - Reference:
       - Configuration: reference/configuration.md
       - Deterministic IDs: reference/ids.md
@@ -53,13 +59,16 @@ nav:
       - Architecture: project/architecture.md
       - Roadmap: project/roadmap.md
       - Contributing: project/contributing.md
-
 extra_css:
   - stylesheets/extra.css
 
 markdown_extensions:
   - admonition
   - attr_list
+  - md_in_html
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
   - tables
   - toc: { permalink: true }
   - pymdownx.details

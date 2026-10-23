@@ -1,3 +1,7 @@
+---
+icon: material/connection
+---
+
 # Connectors
 
 Connectors let a reviewer read from systems outside the code. The first one is Jira: a reviewer can open the issue a pull request is for and check the change does what the issue asks.

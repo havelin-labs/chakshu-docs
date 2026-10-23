@@ -1,25 +1,63 @@
+---
+icon: material/home-outline
+hide:
+  - navigation
+---
+
 # Chakshu
 
-Chakshu (चक्षु, Sanskrit for "the eye") reviews pull requests on GitHub. You run it on your own server.
+Chakshu (चक्षु, Sanskrit for "the eye") reviews pull requests on GitHub. You run it on your own server, each team brings its own reviewer, and every review runs in the pull request's own GitHub Actions.
 
-Every team in your organization keeps its own reviewer: a folder in a GitHub repo with the team's skills, rules and settings. When someone comments `@your-org/chakshu` on a pull request, Chakshu runs the reviewers that match the files the PR changed, or the ones named in the comment. Each reviewer posts its own review and check run. Reviews run in GitHub Actions in the pull request's own repository, so the logs are in its Actions tab, on the Claude Agent SDK, which can only read the code.
+<div class="grid cards" markdown>
 
-!!! note "Before the first release"
-    Everything on these pages works in the current code on `main`, and has been run against a real GitHub organization. There's no tagged release yet, so expect rough edges and tell us about them in [GitHub issues](https://github.com/havelin-labs/chakshu/issues).
+-   :material-account-group-outline:{ .lg } **A reviewer per team**
+
+    Each team keeps a folder of skills and rules in one repo. Calling `@your-org/chakshu` runs the ones that fit the change, or the ones you name.
+
+-   :material-play-circle-outline:{ .lg } **Runs in GitHub Actions**
+
+    Reviews run in the reviewed repository, so the logs are in its Actions tab and your server stays small.
+
+-   :material-shield-lock-outline:{ .lg } **Read-only by design**
+
+    The reviewer can read code and nothing else. Connector tokens such as Jira stay on your server.
+
+-   :material-chart-box-outline:{ .lg } **See what it costs**
+
+    Usage, outcomes and spend by repository, reviewer and person, with a forecast against your monthly cap.
+
+</div>
+
+## Get started
+
+<div class="grid cards" markdown>
+
+-   :material-docker:{ .lg } **[Install](getting-started/install.md)**
+
+    Run Chakshu and Postgres with Docker Compose.
+
+-   :material-github:{ .lg } **[Connect GitHub](getting-started/connect-github.md)**
+
+    Create the GitHub App in a few clicks and add Claude access.
+
+-   :material-play-circle-outline:{ .lg } **[Set up GitHub Actions](getting-started/github-actions.md)**
+
+    One button per repository adds the workflow and its secrets.
+
+-   :material-at:{ .lg } **[Call Chakshu](concepts/calling-chakshu.md)**
+
+    Mention `@your-org/chakshu` on a pull request, or press Review in the portal.
+
+</div>
 
 ## What you need
 
 - A server or laptop with Docker and Docker Compose
-- Owner rights in the GitHub organization you want to review
+- Owner rights in the GitHub organization you want reviewed
 - Claude access: an Anthropic API key or a Claude Pro or Max subscription token
 - GitHub Actions in the repositories you want reviewed
 
-## Where to start
-
-1. [Install with Docker Compose](getting-started/install.md) gets the app and its database running.
-2. [Connect GitHub](getting-started/connect-github.md) creates the GitHub App.
-3. [Set up GitHub Actions](getting-started/github-actions.md) gets each repository ready for reviews.
-4. [Reviewers](concepts/reviewers.md) explains how a team describes the review it wants.
-5. [Calling Chakshu](concepts/calling-chakshu.md) covers what people do on a pull request.
+!!! note "Before the first release"
+    Everything here works on `main` and has been run against a real GitHub organization. There's no tagged release yet, so tell us about rough edges in [GitHub issues](https://github.com/havelin-labs/chakshu/issues).
 
 Something not working? See [Troubleshooting](getting-started/troubleshooting.md).
