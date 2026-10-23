@@ -1,6 +1,6 @@
 # Reviewers
 
-A reviewer is the review one team wants for its product. It lives as a folder in a single repo in your organization, `chakshu-reviewers` by default. GitHub already knows who is on which team, so it also decides who can edit a reviewer and who can call it.
+A reviewer is the review one team wants for its product. It lives as a folder in a single repo in your organization, `chakshu-reviewers` by default. Teams own their folders through `CODEOWNERS`, and anyone with write access to a repository can run any reviewer on it.
 
 Start from the [template repo](https://github.com/havelin-labs/chakshu-reviewers-template).
 
@@ -29,7 +29,7 @@ acme/chakshu-reviewers
 name: payments-reviewer
 product: Payments
 description: Money, refunds, PCI rules
-owner_team: payments             # GitHub team slug; its members can call this reviewer
+owner_team: payments             # GitHub team slug that looks after this reviewer
 model: sonnet
 repos: [payments-api, billing-*]
 paths: ["src/payments/**", "src/refunds/**"]
@@ -49,7 +49,7 @@ fail_check_on: high
 | Field | Default | Meaning |
 |---|---|---|
 | `name` | required | Lowercase letters, digits and dashes. Unique in the repo. |
-| `owner_team` | required | GitHub team slug. Only its members (and org owners) can call this reviewer. |
+| `owner_team` | required | GitHub team slug of the team that looks after this reviewer. Shown in the portal; it doesn't limit who can run it. |
 | `product`, `description` | none | Shown in the portal. |
 | `model` | portal default | Model alias (`sonnet`, `opus`, `haiku`) or a full model name. |
 | `repos` | `["*"]` | Repo names or glob patterns this reviewer covers. |
@@ -68,7 +68,7 @@ Unknown fields are errors, so a typo shows up instead of silently doing nothing.
 
 ## The default reviewer
 
-A reviewer named `default` is the fallback. When someone asks for a review and none of their teams' reviewers fit, Chakshu runs `default` if it covers the repo. Without one, Chakshu replies with which reviewers do cover the repo and who owns them.
+A reviewer named `default` is the fallback. When someone asks for a review without naming one and no reviewer's `repos` and `paths` fit the change, Chakshu runs `default` if it covers the repo. Without one, Chakshu replies with the reviewers that exist and how to call one by name.
 
 ## Skills
 
@@ -87,6 +87,11 @@ Anything else in the folder (checklists, examples) is reference material the rev
 
 ## Changing a reviewer
 
-Edit the folder in a pull request to the reviewers repo, like any other code. When it merges to the default branch, Chakshu resyncs automatically through the `push` webhook. Admins can also press **Sync from GitHub** on the **Reviewers** page.
+Two ways, both ending in a pull request to the reviewers repo:
+
+- **In the portal.** **Reviewers → New reviewer**, or **Edit** on a reviewer's card. The form covers every `reviewer.yaml` field, the rules and the team's own skills (name, description and instructions each). Shared skills are picked by name. Saving checks the draft (name format, names already taken, skills without a description, shared skills that don't exist, connectors that aren't set up) and opens a pull request on the branch `chakshu/reviewer-<name>`. Saving again updates the same pull request. Removing a skill deletes its folder. Any signed-in person can propose; the pull request is where the team reviews it.
+- **In GitHub.** Edit the folder in a pull request like any other code.
+
+When the change merges to the default branch, Chakshu resyncs automatically through the `push` webhook. Admins can also press **Sync from GitHub** on the **Reviewers** page.
 
 Each review records the reviewer commit it used, so old results stay explainable after you edit it. A reviewer with problems is listed as **broken** with the exact errors, and other reviewers keep working.

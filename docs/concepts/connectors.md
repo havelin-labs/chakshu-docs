@@ -37,6 +37,7 @@ description: The change does what the linked Jira issue asks, and nothing it doe
 ## Security
 
 - The token is encrypted in the database and never shown again after you save it.
-- The tool runs inside Chakshu's worker. The agent never sees the token, only the issue text.
+- Reviews run on GitHub Actions runners, but the tool doesn't: the runner forwards each call to Chakshu, which runs it with the stored token. The token never leaves the server, and the agent only sees the issue text.
+- Chakshu only runs tools for connectors the reviewer lists.
 - Issue text is treated like pull request text: marked as untrusted, so instructions inside it aren't followed.
 - The tool can only read issues by key. It can't search, comment or change anything.
