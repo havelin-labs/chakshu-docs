@@ -6,16 +6,18 @@ flowchart TB
   github[GitHub App] -->|webhooks| web
   subgraph compose[docker compose]
     web["web: FastAPI API, React portal, webhooks"]
-    worker["worker: webhook events and reviews"]
+    worker["worker: webhook events, dispatch"]
     db[(Postgres 17)]
     web --> db
     worker --> db
   end
-  worker -->|fetch code, post reviews| github
-  worker -->|Claude Agent SDK| anthropic[Anthropic API]
+  worker -->|workflow_dispatch| actions[GitHub Actions runner]
+  actions -->|OIDC: fetch job, report result| web
+  actions -->|Claude Agent SDK| anthropic[Anthropic API]
+  web -->|post reviews| github
 ```
 
-One Python codebase runs as two processes from the same image: `web` (portal, API, webhooks) and `worker` (reviews). Postgres holds settings, a cache of each org's reviewers, and the `runs` table, which doubles as the job queue. There's no Redis and no message broker.
+One Python codebase runs as two processes from the same image: `web` (portal, API, webhooks, the runner API) and `worker` (webhook handling and dispatching reviews). The review itself runs as `chakshu action` on a GitHub Actions runner in the reviewed repository, from the same package, installed by this repository's `action.yml`. Postgres holds settings, a cache of each org's reviewers, and the `runs` table, which doubles as the job queue. There's no Redis and no message broker.
 
 ## Stack
 
@@ -37,7 +39,12 @@ src/chakshu/
   handlers/   One module per GitHub webhook event.
   services/   Logic that touches the database, GitHub or the model:
               setup, users, installations, catalog, triggers, runs, queue,
-              workspace, engine, publisher, checks, review_runner.
+              dispatcher, jobs, bundle, oidc, review_results, publisher,
+              checks, repo_setup, actions_secrets, proposals,
+              reviewer_editor, replies, app_permissions.
+  runner/     What runs inside GitHub Actions: protocol, client, engine.
+  connectors/ Connector kinds (Jira) and the bridge that forwards tool calls.
+  templates/  The workflow file Chakshu proposes to repositories.
   helpers/    Pure functions, no I/O: selection, mentions, catalog parsing,
               prompt, diff, findings, workspace rules, git.
   db/         Models, session, upsert, migrations.
@@ -58,7 +65,9 @@ frontend/src/
 | `users` | People who sign in |
 | `repos` | Repos the app can see, and whether reviews are on |
 | `reviewers` | Cache of each `reviewer.yaml`, the commit it came from and any errors |
-| `runs` | One reviewer × one PR × one commit; also the job queue |
+| `runs` | One reviewer × one PR × one commit (or one reply), with its Actions run; also the job queue |
+| `connectors` | Outside systems reviewers can read, credentials encrypted |
+| `posted_findings` | Findings Chakshu posted and what became of them |
 | `webhook_events` | Webhooks waiting for or done by the worker; keyed by delivery ID, so redeliveries are dropped |
 
 Every primary key is a [deterministic ID](../reference/ids.md).

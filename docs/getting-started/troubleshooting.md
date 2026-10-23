@@ -31,15 +31,15 @@ Work through these in order:
 
 The person asking needs write, maintain or admin access to the repository.
 
-## Chakshu replied that no reviewer belongs to your teams
+## Chakshu replied that no reviewer covers this change
 
-None of the reviewers that cover this repo and these files are owned by a team you're on, and there's no `default` reviewer. Ask someone on one of the listed teams, or add a reviewer for your team.
+No reviewer's `repos` and `paths` match, and there's no `default` reviewer for the repo. The reply lists the reviewers that exist. Call one by name (`@<org>/chakshu security`) or add a reviewer that covers the repo.
 
 ## The check says "Review didn't finish"
 
 Open the run in the portal for the full error. Common causes:
 
-- **No API key**: set one in **Settings**.
+- **No Claude credential in the repository's secrets**: set one in **Settings**, which copies it to every enabled repository, or press **Copy the credential to all repositories**.
 - **Cost cap reached** (`error_max_budget_usd`): raise `limits.max_usd` in the reviewer or the default in **Settings**, or narrow the reviewer's `paths`.
 - **Turn limit** (`error_max_turns`): the change is very large. Split the pull request or narrow `paths`.
 
@@ -52,6 +52,22 @@ This month's spend reached the monthly cap in **Settings**. An admin can raise o
 ## A webhook shows up under "Failed webhooks"
 
 The **Status** page lists webhooks that failed three times, with the error. Fix the cause (often the app lost access to a repo), then an admin can press **Retry**.
+
+## The check says the repository doesn't have the Chakshu workflow
+
+The workflow isn't on the default branch yet. Open the repository in the portal, press **Set up GitHub Actions** and merge the pull request. See [Set up GitHub Actions](github-actions.md).
+
+## The Actions run fails with "can't reach Chakshu"
+
+The runner couldn't reach `CHAKSHU_RUNNER_URL`. On a laptop, the quick tunnel probably restarted with a new address: get the new one from `docker compose logs tunnel`, update `.env` and run `docker compose up -d web worker`. **Settings → GitHub Actions** warns when the URL isn't public at all.
+
+## The Actions run can't find the action
+
+`havelin-labs/chakshu` is private and your repositories aren't allowed to use it. In that repository's **Settings → Actions → General → Access**, allow repositories in the organization.
+
+## "The app isn't allowed to start workflows here"
+
+The app is missing the Actions permission, or an owner hasn't accepted it. **Settings → GitHub Actions** lists what's missing, with links.
 
 ## The check says "Superseded by a newer commit"
 

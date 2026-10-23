@@ -26,10 +26,21 @@ Work lands in small pull requests, one concern each, tracked in [havelin-labs/ch
 - Insights: per-skill fixed and dismissed rates
 - Jira connector
 
+## Done (0.3)
+
+- Reviews run in GitHub Actions in the reviewed repository, with logs in its Actions tab
+- Repository setup from the portal: workflow pull request and Actions secrets
+- Missing app permissions listed in Settings
+- Call any reviewer by name
+- Create and edit reviewers in the portal, through pull requests
+- Chakshu answers replies to its comments
+- The chakshu team is created during setup
+- A Cloudflare tunnel profile for laptops
+
 ## Next
 
-1. Tag a release after end-to-end testing.
-2. Publish these docs at chakshu.havelin.in/docs.
+1. Tag a release, so the workflow can pin a version of the action.
+2. Deploy to a server and publish these docs at chakshu.havelin.in/docs.
 
 ## Later
 
