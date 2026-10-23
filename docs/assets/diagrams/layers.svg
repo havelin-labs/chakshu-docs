@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 430" width="940" height="430" role="img" aria-labelledby="t d">
+  <title id="t">How Chakshu's code is layered</title>
+  <desc id="d">Entry points (the React portal, api routes, webhook handlers, the worker loop and the Actions runner) call services. Services call helpers, which are pure functions, and db, which holds models and migrations. Connectors sit beside services. Everything builds on core: settings, logging, IDs and crypto. Dependencies only point down.</desc>
+  <defs>
+    <style>
+      text { font-family: Inter, system-ui, -apple-system, "Segoe UI", sans-serif; fill: #0A0A0A; }
+      .name { font-size: 13.5px; font-weight: 600; font-family: "JetBrains Mono", ui-monospace, Consolas, monospace; }
+      .sub { font-size: 11.5px; fill: #5E6773; }
+      .band { font-size: 11px; font-weight: 600; letter-spacing: .06em; fill: #00806F; }
+      .box { fill: #FFFFFF; stroke: #CCCFD1; stroke-width: 1.2; }
+      .accent { fill: #FFFFFF; stroke: #00C7B0; stroke-width: 1.6; }
+      .lane { fill: #F4F5F6; }
+      .line { fill: none; stroke: #5E6773; stroke-width: 1.6; }
+    </style>
+    <marker id="down" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#5E6773"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="940" height="430" rx="14" fill="#FFFFFF"/>
+
+  <!-- Lanes -->
+  <rect class="lane" x="20" y="20" width="900" height="105" rx="10"/>
+  <text class="band" x="36" y="42">ENTRY POINTS</text>
+  <rect class="lane" x="20" y="140" width="900" height="85" rx="10"/>
+  <text class="band" x="36" y="162">LOGIC THAT TALKS TO THE WORLD</text>
+  <rect class="lane" x="20" y="240" width="900" height="85" rx="10"/>
+  <text class="band" x="36" y="262">PURE CODE AND DATA</text>
+  <rect class="lane" x="20" y="340" width="900" height="70" rx="10"/>
+  <text class="band" x="36" y="362">FOUNDATION</text>
+
+  <!-- Entry points -->
+  <rect class="box" x="36" y="52" width="160" height="60" rx="8"/>
+  <text class="name" x="50" y="76">frontend/</text>
+  <text class="sub" x="50" y="96">React portal</text>
+
+  <rect class="accent" x="212" y="52" width="160" height="60" rx="8"/>
+  <text class="name" x="226" y="76">api/</text>
+  <text class="sub" x="226" y="96">HTTP routes, thin</text>
+
+  <rect class="accent" x="388" y="52" width="160" height="60" rx="8"/>
+  <text class="name" x="402" y="76">handlers/</text>
+  <text class="sub" x="402" y="96">one per webhook</text>
+
+  <rect class="accent" x="564" y="52" width="160" height="60" rx="8"/>
+  <text class="name" x="578" y="76">worker.py</text>
+  <text class="sub" x="578" y="96">queues, dispatch</text>
+
+  <rect class="accent" x="740" y="52" width="164" height="60" rx="8"/>
+  <text class="name" x="754" y="76">runner/</text>
+  <text class="sub" x="754" y="96">inside GitHub Actions</text>
+
+  <!-- Services -->
+  <rect class="accent" x="212" y="172" width="512" height="42" rx="8"/>
+  <text class="name" x="226" y="198">services/</text>
+  <text class="sub" x="310" y="198">GitHub, database and runner work</text>
+
+  <rect class="box" x="740" y="172" width="164" height="42" rx="8"/>
+  <text class="name" x="754" y="198">connectors/</text>
+
+  <!-- Pure and data -->
+  <rect class="box" x="212" y="272" width="300" height="42" rx="8"/>
+  <text class="name" x="226" y="298">helpers/</text>
+  <text class="sub" x="300" y="298">pure functions, no I/O</text>
+
+  <rect class="box" x="528" y="272" width="196" height="42" rx="8"/>
+  <text class="name" x="542" y="298">db/</text>
+  <text class="sub" x="580" y="298">models, migrations</text>
+
+  <!-- Core -->
+  <rect class="box" x="212" y="370" width="692" height="30" rx="8"/>
+  <text class="name" x="226" y="390">core/</text>
+  <text class="sub" x="280" y="390">settings, logging, deterministic IDs, crypto</text>
+
+  <!-- Edges: dependencies point down -->
+  <path class="line" d="M196 82 H212" marker-end="url(#down)"/>
+  <path class="line" d="M292 112 V172" marker-end="url(#down)"/>
+  <path class="line" d="M468 112 V172" marker-end="url(#down)"/>
+  <path class="line" d="M644 112 V172" marker-end="url(#down)"/>
+  <path class="line" d="M822 112 V172" marker-end="url(#down)"/>
+  <path class="line" d="M362 214 V272" marker-end="url(#down)"/>
+  <path class="line" d="M626 214 V272" marker-end="url(#down)"/>
+  <path class="line" d="M724 193 H740" marker-end="url(#down)"/>
+  <text class="sub" x="36" y="392">Dependencies only point down.</text>
+</svg>

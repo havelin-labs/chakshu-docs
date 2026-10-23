@@ -1,0 +1,131 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 500" width="940" height="500" role="img" aria-labelledby="t d">
+  <title id="t">Chakshu system overview</title>
+  <desc id="d">People use the portal on the web service. GitHub sends webhooks to web and receives reviews and checks from it. The worker dispatches the chakshu.yml workflow. A GitHub Actions runner in the reviewed repository fetches the job from web with an OIDC token, calls Claude through the Agent SDK, and sends the result back to web, which posts the review. Web and worker share Postgres.</desc>
+  <defs>
+    <style>
+      text { font-family: Inter, system-ui, -apple-system, "Segoe UI", sans-serif; fill: #0A0A0A; }
+      .title { font-size: 14px; font-weight: 600; }
+      .sub { font-size: 11.5px; fill: #5E6773; }
+      .group { font-size: 11px; font-weight: 600; letter-spacing: .06em; fill: #00806F; }
+      .edge { font-size: 11px; fill: #3B434C; }
+      .box { fill: #FFFFFF; stroke: #CCCFD1; stroke-width: 1.2; }
+      .accent { fill: #FFFFFF; stroke: #00C7B0; stroke-width: 1.6; }
+      .chip { fill: #FFFFFF; stroke: #B5BABF; stroke-width: 1; stroke-dasharray: 4 3; }
+      .grp { fill: #F4F5F6; stroke: #B5BABF; stroke-width: 1.2; stroke-dasharray: 6 4; }
+      .line { fill: none; stroke: #5E6773; stroke-width: 1.6; }
+      .icon { fill: none; stroke: #00806F; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+      .badge { fill: #00C7B0; }
+      .badge-t { font-size: 11px; font-weight: 700; fill: #FFFFFF; text-anchor: middle; }
+    </style>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#5E6773"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="940" height="500" rx="14" fill="#FFFFFF"/>
+
+  <!-- Left column: people and GitHub -->
+  <rect class="box" x="30" y="70" width="170" height="80" rx="8"/>
+  <g class="icon" transform="translate(44,86)">
+    <rect x="0" y="0" width="26" height="20" rx="3"/><path d="M0 6 H26"/><circle cx="4" cy="3" r=".6"/><circle cx="7.5" cy="3" r=".6"/>
+  </g>
+  <text class="title" x="80" y="100">People</text>
+  <text class="sub" x="44" y="128">Portal in the browser</text>
+
+  <rect class="box" x="30" y="260" width="170" height="110" rx="8"/>
+  <g class="icon" transform="translate(44,276)">
+    <circle cx="5" cy="4" r="3"/><circle cx="5" cy="20" r="3"/><circle cx="21" cy="8" r="3"/><path d="M5 7 V17 M21 11 C21 16 12 15 7 18"/>
+  </g>
+  <text class="title" x="80" y="292">GitHub</text>
+  <text class="sub" x="44" y="320">Pull requests, comments,</text>
+  <text class="sub" x="44" y="336">the GitHub App, checks</text>
+  <text class="sub" x="44" y="352">and webhooks</text>
+
+  <!-- Server group -->
+  <rect class="grp" x="235" y="40" width="335" height="400" rx="12"/>
+  <text class="group" x="252" y="62">YOUR SERVER · DOCKER COMPOSE</text>
+
+  <rect class="accent" x="258" y="75" width="185" height="95" rx="8"/>
+  <g class="icon" transform="translate(272,90)">
+    <circle cx="10" cy="10" r="9"/><path d="M1 10 H19 M10 1 C6 5 6 15 10 19 M10 1 C14 5 14 15 10 19"/>
+  </g>
+  <text class="title" x="302" y="105">web</text>
+  <text class="sub" x="272" y="130">FastAPI · portal · API</text>
+  <text class="sub" x="272" y="146">webhooks · runner API</text>
+  <text class="sub" x="272" y="162">Jira connector calls</text>
+
+  <rect class="accent" x="258" y="230" width="185" height="80" rx="8"/>
+  <g class="icon" transform="translate(272,245)">
+    <circle cx="10" cy="10" r="3.2"/><path d="M10 1 V4 M10 16 V19 M1 10 H4 M16 10 H19 M3.6 3.6 L5.7 5.7 M14.3 14.3 L16.4 16.4 M3.6 16.4 L5.7 14.3 M14.3 5.7 L16.4 3.6"/>
+  </g>
+  <text class="title" x="302" y="260">worker</text>
+  <text class="sub" x="272" y="285">Handles webhooks,</text>
+  <text class="sub" x="272" y="300">dispatches reviews</text>
+
+  <!-- Postgres cylinder -->
+  <g transform="translate(470,140)">
+    <path d="M0 12 V98 C0 112 80 112 80 98 V12" fill="#FFFFFF" stroke="#00C7B0" stroke-width="1.6"/>
+    <ellipse cx="40" cy="12" rx="40" ry="12" fill="#FFFFFF" stroke="#00C7B0" stroke-width="1.6"/>
+    <text class="title" x="40" y="58" text-anchor="middle">Postgres</text>
+    <text class="sub" x="40" y="76" text-anchor="middle">settings, runs,</text>
+    <text class="sub" x="40" y="91" text-anchor="middle">queue, audit</text>
+  </g>
+
+  <rect class="chip" x="258" y="350" width="140" height="30" rx="6"/>
+  <text class="sub" x="270" y="370">smee · laptop webhooks</text>
+  <rect class="chip" x="408" y="350" width="145" height="30" rx="6"/>
+  <text class="sub" x="420" y="370">tunnel · laptop runners</text>
+  <text class="sub" x="258" y="420">Optional profiles, for running on a laptop</text>
+
+  <!-- Actions group -->
+  <rect class="grp" x="620" y="40" width="295" height="290" rx="12"/>
+  <text class="group" x="637" y="62">GITHUB ACTIONS · REVIEWED REPO</text>
+  <text class="sub" x="637" y="80">.github/workflows/chakshu.yml</text>
+
+  <rect class="accent" x="645" y="92" width="250" height="60" rx="8"/>
+  <g class="icon" transform="translate(659,107)">
+    <circle cx="10" cy="10" r="9"/><path d="M8 6 L14 10 L8 14 z"/>
+  </g>
+  <text class="title" x="689" y="118">chakshu action</text>
+  <text class="sub" x="689" y="138">checks out the PR, reviews it</text>
+
+  <rect class="accent" x="645" y="172" width="250" height="60" rx="8"/>
+  <g class="icon" transform="translate(659,187)">
+    <path d="M10 1 L12 8 L19 10 L12 12 L10 19 L8 12 L1 10 L8 8 z"/>
+  </g>
+  <text class="title" x="689" y="198">Claude Agent SDK</text>
+  <text class="sub" x="689" y="218">read-only tools + team skills</text>
+
+  <rect class="chip" x="645" y="252" width="150" height="30" rx="6"/>
+  <text class="sub" x="657" y="272">logs in the Actions tab</text>
+
+  <!-- Anthropic -->
+  <rect class="box" x="700" y="380" width="195" height="70" rx="8"/>
+  <g class="icon" transform="translate(714,396)">
+    <path d="M6 18 H19 A5 5 0 0 0 18 8 A7 7 0 0 0 5 9 A4.5 4.5 0 0 0 6 18 z"/>
+  </g>
+  <text class="title" x="746" y="412">Anthropic API</text>
+  <text class="sub" x="714" y="436">API key or subscription</text>
+
+  <!-- Edges -->
+  <path class="line" d="M200 110 H258" marker-end="url(#arrow)"/>
+  <text class="edge" x="206" y="102">HTTPS</text>
+
+  <path class="line" d="M200 300 H222 V150 H258" marker-start="url(#arrow)" marker-end="url(#arrow)"/>
+
+  <path class="line" d="M443 120 H508 V140" marker-end="url(#arrow)"/>
+  <path class="line" d="M443 280 H508 V250" marker-end="url(#arrow)"/>
+
+  <path class="line" d="M443 295 H600 V122 H645" marker-end="url(#arrow)"/>
+
+  <path class="line" d="M645 108 H612 V88 H443" marker-end="url(#arrow)"/>
+
+  <path class="line" d="M840 232 V380" marker-end="url(#arrow)"/>
+
+  <!-- Numbered steps -->
+  <circle class="badge" cx="222" cy="225" r="10"/><text class="badge-t" x="222" y="229">1</text>
+  <circle class="badge" cx="600" cy="210" r="10"/><text class="badge-t" x="600" y="214">2</text>
+  <circle class="badge" cx="530" cy="88" r="10"/><text class="badge-t" x="530" y="92">3</text>
+  <circle class="badge" cx="840" cy="305" r="10"/><text class="badge-t" x="840" y="309">4</text>
+  <circle class="badge" cx="222" cy="275" r="10"/><text class="badge-t" x="222" y="279">5</text>
+</svg>
