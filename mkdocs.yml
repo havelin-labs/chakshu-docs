@@ -51,6 +51,12 @@ nav:
       - How a review runs: concepts/how-a-review-runs.md
   - Analytics:
       - Analytics: concepts/analytics.md
+      - People: concepts/people.md
+      - Teams: concepts/teams.md
+      - Review speed: concepts/review-speed.md
+      - Tokens and return on spend: concepts/return-on-spend.md
+      - Spend alerts: concepts/spend-alerts.md
+      - Privacy and data: concepts/privacy.md
       - Insights: concepts/insights.md
   - Reference:
       - Configuration: reference/configuration.md

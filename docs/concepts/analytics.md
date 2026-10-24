@@ -6,7 +6,7 @@ icon: material/chart-box-outline
 
 **Analytics** shows admins how Chakshu is used across the organization and what it costs. **My activity** shows each person their own usage.
 
-Every view takes a period (7, 30 or 90 days, or a year) and can be filtered by repository, reviewer and trigger. The filters live in the page address, so you can share a view by sharing its link. Times are UTC.
+Every view takes a period (7, 30, 90 or 180 days, or a year) and can be filtered by repository, reviewer, trigger and team. The filters live in the page address, so you can share a view by sharing its link. Times are UTC.
 
 ## Views
 
@@ -14,9 +14,13 @@ Every view takes a period (7, 30 or 90 days, or a year) and can be filtered by r
 |---|---|
 | Overview | Reviews, pull requests reviewed, spend, cost per fixed finding, findings posted and fixed, fix rate and the share of reviews someone asked for, each against the previous period of the same length. Daily reviews and daily spend. |
 | Repositories, Reviewers, Skills | For each: reviews, PRs, spend, findings posted, fixed, dismissed and open, fix rate and cost per fixed finding. Export to CSV. Pick a reviewer to filter everything by it, or a skill to see its findings. |
-| People | A usage ledger: reviews each person asked for, how many of their pull requests were reviewed, how many of those ran automatically, and what the reviews they asked for cost. |
-| Cost | This month's spend against the monthly cap, a straight-line projection, the day the cap would be reached at the current rate, reviews stopped by the per-review cap, and spend by repository, reviewer, model and trigger. |
+| Teams | The same numbers per GitHub team. See [Teams](teams.md). |
+| Review speed | Time to the first human review and to merge, for PRs Chakshu reviewed and the rest. See [Review speed](review-speed.md). |
+| People | Every member of the organization as a card, with a page per person. See [People](people.md). |
+| Cost | This month's spend against the monthly cap, a straight-line projection, the day the cap would be reached at the current rate, reviews stopped by the per-review cap, tokens by model, spend by repository, reviewer, model and trigger, and an estimate of the return on spend. See [Tokens and return on spend](return-on-spend.md). |
 | Findings | The newest 200 findings with their outcome and how it was decided. |
+
+Admins can also have Chakshu post to Slack as spend nears the cap, plus a weekly digest. See [Spend alerts](spend-alerts.md).
 
 ## Definitions
 
@@ -29,15 +33,7 @@ Every view takes a period (7, 30 or 90 days, or a year) and can be filtered by r
 
 ## People and privacy
 
-Per-person numbers help with rollout and budget questions: who uses Chakshu, whose code it reviews, and which requests the money goes to. They are a poor measure of anyone's work and easy to misread, so Chakshu limits them:
-
-- The People view lists usage only. There are no findings per author, no ranks and no top or bottom lists, and it's sorted by login.
-- If a selection covers fewer people than the smallest group size (5 by default, never below 3), it's hidden, so a narrow filter can't single someone out.
-- Admins can turn names off entirely, for example while a works council or employee agreement is pending.
-- Every view and export of named people is recorded in an audit log.
-- Everyone can open **My activity** and see exactly the row admins see about them.
-
-Admins set the names switch and the smallest group size at the top of the People view.
+Numbers about people are limited on purpose: usage only, no findings per author, no ranks, small groups hidden, and an audit log of who looked. [Privacy and data](privacy.md) covers the controls and lists every field Chakshu keeps about people.
 
 ## Insights
 

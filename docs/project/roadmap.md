@@ -41,16 +41,15 @@ Work lands in small pull requests, one concern each, tracked in [havelin-labs/ch
 - The chakshu team is created during setup
 - A Cloudflare tunnel profile for laptops
 - Analytics for owners (usage, outcomes and spend by repository, reviewer, skill and person) and My activity for everyone
+- A People directory with a card for every member and a page per person
+- Teams with dated membership, review speed, token counts and a return on spend estimate
+- Spend alerts and a weekly digest in Slack
+- Privacy controls: retention, export switch, works council mode and an audit log
 
 ## Next
 
 1. Tag a release, so the workflow can pin a version of the action.
-2. Deploy to a server and publish these docs at chakshu.havelin.in/docs.
-
-## Planned
-
-- A People directory: a card for every member and a page per person ([#89](https://github.com/havelin-labs/chakshu/issues/89))
-- Analytics: teams, spend alerts and a weekly digest, token counts, review speed, and retention controls ([#84](https://github.com/havelin-labs/chakshu/issues/84) to [#88](https://github.com/havelin-labs/chakshu/issues/88))
+2. Deploy to a server. These docs are live at chakshu.havelin.in/docs.
 
 ## Later
 
