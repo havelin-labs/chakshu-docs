@@ -55,9 +55,11 @@ The same page sets the default model, the cost caps and the reviewers repo name.
 
 Create `<org>/chakshu-reviewers` from the [template](https://github.com/havelin-labs/chakshu-reviewers-template) with **Use this template**, and make sure the app can see it. Then press **Sync from GitHub** on the **Reviewers** page. You should see the `default` reviewer marked ready.
 
-## 7. Create the chakshu team
+## 7. Create the chakshu teams
 
-Press **Create the chakshu team**, either on the page GitHub sends you back to after installing or under **Settings → Review team**. It creates an empty, closed team called `chakshu` with notifications off and read access to the installed repositories. That's the handle people mention and request; see [Calling Chakshu](../concepts/calling-chakshu.md). If the team already exists, Chakshu leaves it alone. You can also create it by hand.
+Press **Create the chakshu teams**, either on the page GitHub sends you back to after installing or under **Settings → Review team**. It creates an empty, closed team called `chakshu` with notifications off and read access to the installed repositories. That's the handle people mention and request; see [Calling Chakshu](../concepts/calling-chakshu.md). If the team already exists, Chakshu leaves it alone. You can also create it by hand.
+
+It also creates a team under `chakshu` for each reviewer, such as `chakshu-default`, so a single reviewer can be requested from a pull request's Reviewers list. These follow the reviewers repo on every sync.
 
 ## 8. Set up GitHub Actions
 

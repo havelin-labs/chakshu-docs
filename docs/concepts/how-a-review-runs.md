@@ -23,7 +23,7 @@ flowchart LR
 8. **Report back.** The runner sends the result, or the reason it failed, to Chakshu.
 9. **Publish.** Chakshu posts as its GitHub App. Findings below `min_severity` are dropped and the rest are capped at `max_findings`. Findings already posted on this PR are skipped. Each carries a hidden ID made from the file, category and title, so an unrelated edit doesn't make it look new. The rest go out as one review: inline comments with suggestions where the agent offered a fix, and anything outside the changed lines in the summary.
 10. **Tidy up.** Chakshu resolves its own earlier threads when GitHub marks them outdated (the code under them changed) and the finding didn't come back in this review. Threads people started are never touched.
-11. **Finish.** The check run completes: failure if any finding reaches `fail_check_on`, success otherwise. Cost, duration and findings are saved on the run, and a pending `chakshu` review request is cleared.
+11. **Finish.** The check run completes: failure if any finding reaches `fail_check_on`, success otherwise. Cost, duration and findings are saved on the run, and a pending request for `chakshu` or for the reviewer's own team (`chakshu-<reviewer>`) is cleared.
 
 ## Later reviews of the same PR
 
