@@ -47,9 +47,19 @@ docker compose up -d web worker
 
 A quick tunnel gets a new address every time it starts, and can drop after a few hours. Repeat the steps when that happens, or use a named Cloudflare tunnel or a real server for anything longer-lived.
 
+## 4. Choose where reviews run
+
+By default the workflow runs on GitHub-hosted `ubuntu-latest` runners. To keep the checked-out code on your own machines, run reviews on [self-hosted runners](https://docs.github.com/actions/hosting-your-own-runners) instead:
+
+1. Register a runner for the repository or the organization in GitHub (**Settings → Actions → Runners**).
+2. In Chakshu, set the labels it should match. Use **Settings → GitHub Actions → Runner labels** for every repository, or the repository's own page to override it for that repo. Labels are comma- or space-separated, for example `self-hosted, linux, x64`. Leave the field empty to go back to the default.
+3. The repository's workflow now shows as out of date. Press **Set up GitHub Actions** and merge the pull request it opens; the labels go into the workflow's `runs-on`.
+
+The runner needs Python (the action installs it with `actions/setup-python`) and network access to your Chakshu server and to Claude. The diff is still sent to Claude for the review, through your own key.
+
 ## The action
 
-The workflow runs the `havelin-labs/chakshu` action. While that repository is private, allow repositories in your organization to use it: in its **Settings → Actions → General → Access**, choose access from repositories in the organization. Admins can point the workflow at another copy of the action with the `actions_action` setting (`owner/repo@ref`).
+The workflow runs the `havelin-labs/chakshu` action, which is public, so any repository can use it. Admins can point the workflow at another copy of the action with the `actions_action` setting (`owner/repo@ref`).
 
 ## App permissions
 
