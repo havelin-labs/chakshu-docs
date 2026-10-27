@@ -34,7 +34,7 @@ A few things are set in the environment before Chakshu starts. Everything else i
 | Cost cap per review | $2 | Used when a reviewer doesn't set `limits.max_usd`. |
 | Monthly spend cap | none | New reviews are refused once this calendar month's (UTC) spend reaches it. Settings shows spend so far. |
 | Reviewers repo name | `chakshu-reviewers` | The repo in each org that holds reviewer folders. |
-| Review action | `havelin-labs/chakshu@main` | The action the review workflow runs (`owner/repo@ref`). Set through the API as `actions_action`. |
+| Review action | `havelin-labs/chakshu@v0.1` (the server's minor version; `@main` on development builds) | The action the review workflow runs (`owner/repo@ref`). Set through the API as `actions_action`. |
 
 Admins can also turn reviews off for a repository on the **Repositories** page.
 

@@ -4,7 +4,7 @@ icon: material/docker
 
 # Install with Docker Compose
 
-Chakshu runs as a few containers from one image plus Postgres. Reviews themselves run in GitHub Actions in each reviewed repository, so the server stays small.
+Chakshu runs as a few containers from one published image, `ghcr.io/havelin-labs/chakshu`, plus Postgres. The image is built for amd64 and arm64. Reviews themselves run in GitHub Actions in each reviewed repository, so the server stays small.
 
 | Service | Does |
 |---|---|
@@ -17,10 +17,12 @@ Chakshu runs as a few containers from one image plus Postgres. Reviews themselve
 
 ## 1. Get the files
 
+Each [release](https://github.com/havelin-labs/chakshu/releases) has a `compose.yaml` pinned to that version and an example `.env`. Nothing to clone or build:
+
 ```bash
-git clone https://github.com/havelin-labs/chakshu.git
-cd chakshu
-cp .env.example .env
+mkdir chakshu && cd chakshu
+curl -fsSLO https://github.com/havelin-labs/chakshu/releases/latest/download/compose.yaml
+curl -fsSL https://github.com/havelin-labs/chakshu/releases/latest/download/env.example -o .env
 ```
 
 ## 2. Fill in `.env`
@@ -30,7 +32,7 @@ Three values matter:
 ```bash
 # Signs sessions and encrypts stored secrets (32+ characters). Keep it safe:
 # changing it makes the stored GitHub keys and API key unreadable.
-CHAKSHU_SECRET_KEY=$(python -c "import secrets; print(secrets.token_urlsafe(48))")
+CHAKSHU_SECRET_KEY=$(openssl rand -base64 48)
 
 # Password for the bundled Postgres.
 POSTGRES_PASSWORD=$(openssl rand -hex 24)
@@ -44,7 +46,7 @@ The [configuration reference](../reference/configuration.md) lists the optional 
 ## 3. Start it
 
 ```bash
-docker compose up -d --build --wait
+docker compose up -d --wait
 docker compose ps
 ```
 
@@ -68,10 +70,14 @@ GitHub has to reach Chakshu twice: webhooks, and Actions runners reporting back.
 
 ## Upgrading
 
+Download the newer `compose.yaml` and start again. Your `.env` stays as it is.
+
 ```bash
-git pull
-docker compose up -d --build --wait
+curl -fsSLO https://github.com/havelin-labs/chakshu/releases/latest/download/compose.yaml
+docker compose up -d --wait
 ```
+
+To pin a version without downloading, set `CHAKSHU_VERSION=0.1.0` in `.env`.
 
 Migrations run before `web` and `worker` start. Reviews in progress keep running in GitHub Actions while the server restarts; a runner that can't reach Chakshu for a moment retries. Webhooks that arrive during the upgrade wait in the database until the new worker is up.
 
@@ -82,3 +88,19 @@ curl localhost:8000/healthz   # the web process is up
 curl localhost:8000/readyz    # it can reach the database
 docker compose exec worker chakshu worker-health && echo worker ok
 ```
+
+## Verifying the image
+
+Release images are signed with [cosign](https://docs.sigstore.dev/cosign/) by the repository's release workflow, with no long-lived key:
+
+```bash
+cosign verify ghcr.io/havelin-labs/chakshu:0.1.0 \
+  --certificate-identity-regexp '^https://github.com/havelin-labs/chakshu/\.github/workflows/release\.yml@refs/tags/v' \
+  --certificate-oidc-issuer https://token.actions.githubusercontent.com
+```
+
+Each image also carries an SBOM and build provenance.
+
+## From source
+
+To build the image yourself, clone the repository, copy `.env.example` to `.env`, and run `docker compose up -d --build --wait`. Upgrade with `git pull` and the same command.
